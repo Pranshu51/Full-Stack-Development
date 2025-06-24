@@ -1,0 +1,114 @@
+/* POSITIN: ABSOLUTE -- 
+ means layer ka box ke uper uthna aur uper aa jana agr 3 layer h to 1 layer uper uthegi aur 2 uuske neeche aa jaegi au r agr 2 layer uper uthegi to wo 1 ke bhi uper jaegi aur 3 uske neeche aa jaegi aur agr 3layer uper uthegi to wo sbse uper aa jaegi */
+
+ /*  POSITION :RELETIVE-
+isme dabbe ke beech me hi aaega apne parent ke beech me aega dabba
+*/
+/* JAB BHI KUCH AGAL AGAL KARNA HOTA H TO FLEXBOX KA SUE KARTE HAI */
+
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+/* }
+#car1{
+  position:absolute;
+  height:100px;
+  width:110px;
+  background-color: red;
+}
+#car2{
+  position:absolute;
+  height:120px;
+  width:130px;
+  background-color:blue;
+}
+#car3{
+  position:absolute;
+  height:150px;
+  width:140px;
+  background-color:green;
+} */
+/* #box{
+ 
+  position:relative;
+  height:500px;
+  width:500px;
+  background-color:yellow;
+  
+}
+#cube{
+  position:absolute;
+  right:50%;
+  height:50px;
+  width:50px;
+  background-color:blue;
+} */
+ /* posab.css */
+html, body {
+ width:100%;
+  height: 100%;
+}
+#main {
+  display:flex;
+  height: 100%;
+  width: 100%;
+}
+#left {
+  height: 100%;
+  width: 50%;
+  background-image: url(https://images.unsplash.com/photo-1635514874042-beb98fd8ea43?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-size: cover;
+  background-position:  center;
+ 
+}
+#right {
+  height: 100%;
+  width: 50%;
+  background-color: rgb(13, 255, 0);
+  background-image: url(https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-size: cover;
+  background-position:  center;
+}
+#overlay1{
+  position:relative;
+  height:100%;
+  width:100%;
+  background-color:rgba(0, 0, 0, 0.395);
+}
+#overlay2{
+  position:relative;
+  height:100%;
+  width:100%;
+  background-color:rgba(255, 255, 255, 0.67);
+}
+
+#text{
+  top:50%;
+  left:50%; 
+  transform:translate(-50%, -50%);
+  text-align:center;
+  width:100%;
+  position:absolute;
+  color:white;
+}
+#text h1{
+  font-size:55px;
+  font-weight:700;
+}
+
+#text1{
+  top:50%;
+  left:50%; 
+  transform:translate(-50%, -50%);
+  text-align:center;
+  width:100%;
+  position:absolute;
+  color:black;
+}
+#text1 h1{
+  font-size:55px;
+  font-weight:700;
+}
