@@ -15,5 +15,9 @@
     "dotenv": "^17.0.0",
     "express": "^5.1.0",
     "mongoose": "^8.16.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Pranshu51/Full-Stack-Development/issues"
+  },
+  "homepage": "https://github.com/Pranshu51/Full-Stack-Development#readme"
 }
