@@ -2,16 +2,29 @@ import { faker } from '@faker-js/faker';
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 dotenv.config();
+import express from 'express';
+import Path from 'path';
+import { fileURLToPath } from 'url';
+import methodOverride from 'method-override';
 
 
-/* database acess karne ke 4 methods
--->workbench
--->mysql package ->node.js
--->cli(command line initerface) mysqql -u root -p likhke
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = Path.dirname(__filename);
+ const app = express();
 
-for QUIT WRITE-->quit or ctrl+d
--->using sql files--> file banake .sql extension ke sath likhke usko run karna
-*/
+ app.use(methodOverride("_method"));
+ app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+ app.set("view engine", "ejs");
+ app.set("views", Path.join(__dirname, "/views"));
+ 
+// /* database acess karne ke 4 methods
+// -->workbench
+// -->mysql package ->node.js
+// -->cli(command line initerface) mysqql -u root -p likhke
+
+// for QUIT WRITE-->quit or ctrl+d
+// -->using sql files--> file banake .sql extension ke sath likhke usko run karna
+// */
 
 
 const connection = await mysql.createConnection({
@@ -20,29 +33,123 @@ const connection = await mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
-let q = "SHOW TABLES";
-try {
+
+// home route
+   app.get('/', async (req, res) => {
+  let q =  `select count(*) from users`;
+  try {
   const [results] = await connection.query(q);
-  console.log(results);
-  console.log(results.length);
-  console.log(results[0]);
-  console.log(results[1]);
+  let count = (results[0]["count(*)"]);
+  res.render("home.ejs",{count});
 
 } catch (err) {
   console.log(err);
+  res.send("Some Error in db");
 }
-  connection.end();
-let getRandomUser = () => {
-  return {
-    _id: faker.string.uuid(),
-    email: faker.internet.email(),
-    userName: faker.internet.userName(),
-    password: faker.internet.password(),
-  };
-};
+  
+});
 
-console.log(getRandomUser()); 
+// show route
+app.get("/user", async (req,res) =>{
+  let q = `select * from users`;
 
+  try {
+  const [users] = await connection.query(q);
+
+  // console.log(results);
+  res.render("showusers.ejs",{users});
+} catch (err) {
+  console.log(err);
+  res.send("Some Error in db");
+}
+});
+
+// Edit ROute
+app.get("/user/:id/edit", async (req, res) => {
+  let { id } = req.params;
+  console.log(id);
+  let q = `SELECT * FROM users WHERE id = ?`;
+  try {
+    const [users] = await connection.query(q, [id]);
+    res.render("edit.ejs", { users: users[0] }); // send the single user object
+  } catch (err) {
+    console.log(err);
+    res.send("Some Error in db");
+  }
+});
+
+// Update (DB)ROute
+app.patch("/user/:id", async (req, res) => {
+  // res.send("Update Route Hit");
+  let { id } = req.params;
+  let { password: fromPass, username: newUsername } = req.body;
+  let q = `SELECT * FROM users WHERE id = ?`;
+  try {
+    const [users] = await connection.query(q, [id]);
+     if (fromPass !== users[0].password) {
+      return res.send("Password does not match");
+    }else{
+      let q2 = `UPDATE users SET username = ? WHERE id = ?`;
+      const [result] = await connection.query(q2, [newUsername, id]);
+      res.redirect("/user");
+    }
+
+    // res.render("edit.ejs", { users: users[0] }); // send the single user object
+  } catch (err) {
+    console.log(err);
+    res.send("Some Error in db");
+  }
+});
+
+
+
+app.listen("8080", () =>{
+  console.log(`server is listening on port ${8080}`);
+});
+
+// let q = "SHOW TABLES";
+// inserting new data into table
+// let q = "INSERT INTO users (id, username, email, password) VALUES ?";
+// let users = [
+//   ["1235","123_newusers", "abrc@gmail.com", "password123"],
+//   ["124","124_newuser", "def@gmail.com", "password124"]
+// ];
+
+// let getRandomUser = () => {
+//   return [
+//     faker.string.uuid(),
+//     faker.internet.userName(),
+//     faker.internet.email(), 
+//     faker.internet.password(),
+//   ];
+// };
+
+
+
+
+// console.log(getRandomUser()); 
+
+// let data =[];
+// for(let i=1; i<=100; i++){
+//    data.push(getRandomUser()); /*100 fake ussers*/
+// }
+
+
+// // connection part 
+// try {
+//   const [results] = await connection.query(q, [data]);
+//   console.log(results);
+//   // console.log(results.length);
+//   // console.log(results[0]);
+//   // console.log(results[1]);
+
+// } catch (err) {
+//   console.log(err);
+// }
+//   connection.end();
+
+
+ 
 
 
 
