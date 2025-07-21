@@ -1,16 +1,26 @@
 {
+<<<<<<< HEAD
   "name": "sql_node_connection",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+  "name": "mongodb",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node server.js"
+>>>>>>> ce68539cba535dc4605e9ee6eba1cd3ae012b5f1
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+<<<<<<< HEAD
     "@faker-js/faker": "^9.9.0",
     "dotenv": "^17.2.0",
     "ejs": "^3.1.10",
@@ -20,4 +30,15 @@
     "nodemon": "^3.1.10",
     "uuid": "^11.1.0"
   }
+=======
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.1"
+  },
+  "bugs": {
+    "url": "https://github.com/Pranshu51/Full-Stack-Development/issues"
+  },
+  "homepage": "https://github.com/Pranshu51/Full-Stack-Development#readme"
+>>>>>>> ce68539cba535dc4605e9ee6eba1cd3ae012b5f1
 }
